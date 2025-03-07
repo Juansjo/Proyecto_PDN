@@ -179,3 +179,7 @@ SECRET_KEY='MiClaveSecreta123'
 Situarse en la carpeta Proyecto biblioteca\backend y ejecutar
 
 ```
+npm install
+
+```
+En consiguiente se ejecuta
