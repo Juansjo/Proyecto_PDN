@@ -183,3 +183,8 @@ npm install
 
 ```
 En consiguiente se ejecuta
+
+```
+backend: npm run dev
+
+```
