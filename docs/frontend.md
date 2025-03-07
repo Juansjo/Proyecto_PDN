@@ -1,5 +1,7 @@
 
-[frontend.md](https://github.com/user-attachments/files/19119638/frontend.md)# Gestión de Biblioteca
+[frontend.md](https://github.com/user-attachments/files/19119638/frontend.md)
+
+# Gestión de Biblioteca
 
 ##Integrantes
 Juan Jose Pérez Gomez - 191923
