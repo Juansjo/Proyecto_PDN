@@ -1,0 +1,119 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header">
+        <h2>{{ esEdicion ? 'Editar Libro' : 'Nuevo Libro' }}</h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="cargando" class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+  
+        <div *ngIf="errorMsg" class="alert alert-danger">
+          {{ errorMsg }}
+        </div>
+  
+        <form [formGroup]="libroForm" (ngSubmit)="guardar()" *ngIf="!cargando">
+          <div class="mb-3">
+            <label for="titulo" class="form-label">Título *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="titulo" 
+              formControlName="titulo"
+              [ngClass]="{'is-invalid': titulo?.invalid && titulo?.touched}"
+            >
+            <div class="invalid-feedback" *ngIf="titulo?.errors?.['required'] && titulo?.touched">
+              El título es obligatorio.
+            </div>
+            <div class="invalid-feedback" *ngIf="titulo?.errors?.['maxlength'] && titulo?.touched">
+              El título no puede tener más de 100 caracteres.
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="autor" class="form-label">Autor *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="autor" 
+              formControlName="autor"
+              [ngClass]="{'is-invalid': autor?.invalid && autor?.touched}"
+            >
+            <div class="invalid-feedback" *ngIf="autor?.errors?.['required'] && autor?.touched">
+              El autor es obligatorio.
+            </div>
+            <div class="invalid-feedback" *ngIf="autor?.errors?.['maxlength'] && autor?.touched">
+              El autor no puede tener más de 100 caracteres.
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="editorial" class="form-label">Editorial</label>
+            <input type="text" class="form-control" id="editorial" formControlName="editorial">
+          </div>
+  
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="isbn" class="form-label">ISBN</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="isbn" 
+                formControlName="isbn"
+                [ngClass]="{'is-invalid': isbn?.invalid && isbn?.touched}"
+              >
+              <div class="invalid-feedback" *ngIf="isbn?.errors?.['maxlength'] && isbn?.touched">
+                El ISBN no puede tener más de 20 caracteres.
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <label for="anioPublicacion" class="form-label">Año de publicación</label>
+              <input 
+                type="number" 
+                class="form-control" 
+                id="anioPublicacion" 
+                formControlName="anioPublicacion"
+                [ngClass]="{'is-invalid': anioPublicacion?.invalid && anioPublicacion?.touched}"
+              >
+              <div class="invalid-feedback" *ngIf="anioPublicacion?.errors?.['min'] && anioPublicacion?.touched">
+                El año debe ser un número positivo.
+              </div>
+              <div class="invalid-feedback" *ngIf="anioPublicacion?.errors?.['max'] && anioPublicacion?.touched">
+                El año no puede ser mayor al actual.
+              </div>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea 
+              class="form-control" 
+              id="descripcion" 
+              rows="4" 
+              formControlName="descripcion"
+              [ngClass]="{'is-invalid': descripcion?.invalid && descripcion?.touched}"
+            ></textarea>
+            <div class="invalid-feedback" *ngIf="descripcion?.errors?.['maxlength'] && descripcion?.touched">
+              La descripción no puede tener más de 1000 caracteres.
+            </div>
+          </div>
+  
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="disponible" formControlName="disponible">
+            <label class="form-check-label" for="disponible">Disponible</label>
+          </div>
+  
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" (click)="cancelar()" [disabled]="enviando">Cancelar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="enviando">
+              <span *ngIf="enviando" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+              {{ esEdicion ? 'Actualizar' : 'Guardar' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
