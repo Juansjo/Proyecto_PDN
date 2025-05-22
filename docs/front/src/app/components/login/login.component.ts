@@ -35,9 +35,9 @@ export class LoginComponent {
  
   
 
-  async loginWithFacebook() {
+  async loginWithGoogle() {
     try {
-      const provider = new FacebookAuthProvider();
+      const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(this.auth, provider);
       const token = await result.user.getIdToken();
       localStorage.setItem('firebaseToken', token);
@@ -47,7 +47,17 @@ export class LoginComponent {
     }
   }
 
-  
+  async loginWithGithub() {
+    try {
+      const provider = new GithubAuthProvider();
+      const result = await signInWithPopup(this.auth, provider);
+      const token = await result.user.getIdToken();
+      localStorage.setItem('firebaseToken', token);
+      this.router.navigate(['/home']);
+    } catch (error) {
+      alert("Error: " + (error as Error).message);
+    }
+  }
 
 
  async Login() {
