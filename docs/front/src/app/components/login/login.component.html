@@ -77,14 +77,13 @@
           <button class="facebook" (click)="loginWithFacebook()">
             <i class="fab fa-facebook"></i> Continuar con Facebook
           </button>
-          
           <button class="github" (click)="loginWithGithub()">
             <i class="fab fa-github"></i> Continuar con GitHub
           </button>
         </div>
         <!-- Additional Links -->
         <div class="text-center mt-4">
-          <a href="#" class="text-decoration-none">¿Olvidaste la contraseña?</a>
+          <a href="#" class="text-decoration-none" (click)="resetPassword($event)">¿Olvidaste la contraseña?</a>
           <p class="mt-3">¿Empleado Nuevo? <a href="#" class="text-primary fw-bold" routerLink="/register" routerLinkActive="active-link">¡Registrate aqui!</a></p>
         </div>
         </div>

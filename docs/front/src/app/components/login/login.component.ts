@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Auth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider } from '@angular/fire/auth';
 import { signal, computed } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
+import { sendPasswordResetEmail } from '@angular/fire/auth';
 
 
 @Component({
@@ -13,15 +14,16 @@ import { ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  mostrarCorreo() {
-    alert("Correo actual: " + this.email());
-  }
-
+  
   email = signal<string>('');
   password= signal<string>('');
   showPassword: boolean = false;
 
  @ViewChild('passwordField') passwordField!: ElementRef<HTMLInputElement>;
+ private isValidEmail(email: string): boolean {
+  const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  return pattern.test(email);
+}
 
   togglePasswordVisibility(): void {
     const passwordField = document.getElementById('password') as HTMLInputElement;
@@ -71,7 +73,7 @@ export class LoginComponent {
 
 
  async Login() {
-  console.log("Correo capturado:", this.email);
+  //console.log("Correo capturado:", this.email);
   try {
     const email = this.email   
     
@@ -96,7 +98,31 @@ export class LoginComponent {
   alert("Error: " + (error as Error).message);
   }
 }
- 
+
+// Añade este método en la clase
+async resetPassword(event: Event) {
+  event.preventDefault();
+  
+  let email = this.email().trim();
+  
+  if (!email) {
+    const input = prompt('Por favor ingresa tu correo electrónico registrado:');
+    if (!input) return; // Usuario canceló el prompt
+    email = input.trim();
+  }
+
+  if (!this.isValidEmail(email)) {
+    alert('Por favor ingrese un email válido');
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(this.auth, email);
+    alert(`Se ha enviado un enlace de restablecimiento a ${email}`);
+  } catch (error) {
+    alert("Error: " + (error as Error).message);
+  }
+}
  
  
   /*
