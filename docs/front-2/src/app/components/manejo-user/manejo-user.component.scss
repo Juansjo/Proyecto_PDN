@@ -1,0 +1,127 @@
+
+.manejo-user-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      
+      .search-bar {
+        display: flex;
+        gap: 10px;
+        
+        input {
+          padding: 8px 12px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          width: 300px;
+        }
+        
+        button {
+          padding: 8px 16px;
+          background-color: #4285f4;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          
+          &:hover {
+            background-color: #3367d6;
+          }
+        }
+      }
+      
+      .sort-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        
+        label {
+          font-weight: 500;
+        }
+        
+        select {
+          padding: 8px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+        
+        button {
+          padding: 8px 12px;
+          background-color: #34a853;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          
+          &:hover {
+            background-color: #2d9147;
+          }
+        }
+      }
+    }
+    
+    .user-table {
+      overflow-x: auto;
+      
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        
+        thead {
+          background-color: #f8f9fa;
+          
+          th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6;
+            cursor: pointer;
+            
+            &:hover {
+              background-color: #e9ecef;
+            }
+          }
+        }
+        
+        tbody {
+          tr {
+            border-bottom: 1px solid #dee2e6;
+            
+            &:nth-child(even) {
+              background-color: #f8f9fa;
+            }
+            
+            &:hover {
+              background-color: #e9ecef;
+            }
+            
+            td {
+              padding: 12px 15px;
+            }
+          }
+        }
+      }
+      
+      .no-results {
+        padding: 20px;
+        text-align: center;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        margin-top: 10px;
+        color: #6c757d;
+      }
+    }
+  }
