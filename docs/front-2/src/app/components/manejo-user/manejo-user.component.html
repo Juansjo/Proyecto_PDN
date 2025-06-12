@@ -1,0 +1,57 @@
+<div class="manejo-user-container">
+    <h2>Gestión de Usuarios</h2>
+    
+    <div class="controls">
+      <div class="search-bar">
+        <input type="text" 
+               #searchInput
+               [value]="searchTerm" 
+               (input)="searchTerm = searchInput.value; applyFilter()"
+               placeholder="Buscar por nombre o email">
+        <button (click)="applyFilter()">Buscar</button>
+      </div>
+      
+      <div class="sort-controls">
+        <label>Ordenar por:</label>
+        <select #sortSelect [value]="sortField" (change)="sortUsers(sortSelect.value)">
+          <option value="createdAt">Fecha de Registro</option>
+          <option value="displayName">Nombre</option>
+          <option value="email">Email</option>
+          <option value="lastLogin">Último Login</option>
+        </select>
+        
+        <button (click)="toggleSortDirection()">
+          {{ sortDirection === 'asc' ? '↑ Ascendente' : '↓ Descendente' }}
+        </button>
+      </div>
+    </div>
+    
+    <div class="user-table">
+      <table>
+        <thead>
+          <tr>
+            <th (click)="sortUsers('displayName')">Nombre</th>
+            <th (click)="sortUsers('email')">Email</th>
+            <th>Rol</th>
+            <th (click)="sortUsers('createdAt')">Fecha Registro</th>
+            <th (click)="sortUsers('lastLogin')">Último Login</th>
+            <th>Proveedor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of filteredUsers">
+            <td>{{ user.displayName || 'N/A' }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role || 'user' }}</td>
+            <td>{{ user.createdAt | date:'dd/MM/yyyy HH:mm' || 'N/A' }}</td>
+            <td>{{ user.lastLogin | date:'dd/MM/yyyy HH:mm' || 'N/A' }}</td>
+            <td>{{ user.provider || 'email' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div *ngIf="filteredUsers.length === 0" class="no-results">
+        No se encontraron usuarios
+      </div>
+    </div>
+  </div>
