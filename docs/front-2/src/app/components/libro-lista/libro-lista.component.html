@@ -1,0 +1,75 @@
+<div class="container mt-4">
+    <h2>Catálogo de Libros</h2>
+    
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="input-group">
+         <select class="form-select" style="width: 30%" [(ngModel)]="criterio">
+            <option value="titulo">Título</option>
+            <option value="autor">Autor</option>
+          </select>
+          <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Buscar libros..." 
+            [(ngModel)]="busqueda"
+            (keyup.enter)="buscar()"
+          >
+          <button class="btn btn-primary" (click)="buscar()">Buscar</button>
+        </div>
+      </div>
+      <div class="col-md-6 text-end">
+        <button class="btn btn-success" (click)="nuevoLibro()">Nuevo Libro</button>
+      </div>
+    </div>
+  
+    <div *ngIf="cargando" class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  
+    <div *ngIf="!cargando && libros.length === 0" class="alert alert-info">
+      No se encontraron libros.
+    </div>
+  
+    <div *ngIf="!cargando && libros.length > 0" class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Editorial</th>
+            <th>Año</th>
+            <th>Disponible</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let libro of libros">
+            <td>{{ libro.titulo }}</td>
+            <td>{{ libro.autor }}</td>
+            <td>{{ libro.editorial }}</td>
+            <td>{{ libro.anioPublicacion }}</td>
+            <td>
+              <span *ngIf="libro.disponible" class="badge bg-success">Disponible</span>
+              <span *ngIf="!libro.disponible" class="badge bg-danger">No disponible</span>
+            </td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-info me-1" (click)="verDetalle(libro.id!)">
+                  Ver
+                </button>
+                <button class="btn btn-sm btn-warning me-1" (click)="editarLibro(libro.id!)">
+                  Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarLibro(libro.id!)">
+                  Eliminar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
